@@ -2,112 +2,95 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+        <div class="property-listings">
+            <a href="/property">
+            <div class="property-listing">
+                <img src="properties/1.jpeg" alt="Property 1"/>
+                <h3>Lime Tree Cottage</h3>
+                <p>Entire cottage &#183; 4 guests &#183; 2 bedrooms &#183; 2 beds &#183; 1.5 baths</p>
+                <p>Wifi &#183; Garden &#183; Free parking</p>
+                <p>$150 / night</p>
+            </div>
+            </a>
+            <div class="property-listing">
+                <img src="properties/2.jpeg" alt="Property 2"/>
+                <h3>Seaside House</h3>
+                <p>Entire house &#183; 6 guests &#183; 3 bedrooms &#183; 3 beds &#183; 2 baths</p>
+                <p>Ocean view &#183; Terrace &#183; BBQ</p>
+                <p>$220 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/3.jpeg" alt="Property 3"/>
+                <h3>Mountain Retreat</h3>
+                <p>Entire cabin &#183; 2 guests &#183; 1 bedroom &#183; 1 bed &#183; 1 bath</p>
+                <p>Hiking trails &#183; Fireplace &#183; Pet-friendly</p>
+                <p>$100 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/4.jpeg" alt="Property 4"/>
+                <h3>Urban Loft</h3>
+                <p>Entire loft &#183; 3 guests &#183; 1 bedroom &#183; 2 beds &#183; 1 bath</p>
+                <p>City view &#183; Modern design &#183; Gym access</p>
+                <p>$180 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/5.jpeg" alt="Property 5"/>
+                <h3>Rustic Farmhouse</h3>
+                <p>Entire farmhouse &#183; 8 guests &#183; 4 bedrooms &#183; 4 beds &#183; 2.5 baths</p>
+                <p>Fire pit &#183; Animal feeding &#183; Scenic views</p>
+                <p>$250 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/6.jpeg" alt="Property 6"/>
+                <h3>City Studio</h3>
+                <p>Entire studio &#183; 2 guests &#183; 1 bedroom &#183; 1 bed &#183; 1 bath</p>
+                <p>Near downtown &#183; Public transport &#183; Cafes</p>
+                <p>$90 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/7.jpeg" alt="Property 7"/>
+                <h3>Luxury Villa</h3>
+                <p>Entire villa &#183; 10 guests &#183; 5 bedrooms &#183; 5 beds &#183; 4 baths</p>
+                <p>Private pool &#183; Spa &#183; Oceanfront</p>
+                <p>$550 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/8.jpeg" alt="Property 8"/>
+                <h3>Treehouse Retreat</h3>
+                <p>Entire treehouse &#183; 2 guests &#183; 1 bedroom &#183; 1 bed &#183; 1 bath</p>
+                <p>Forest surroundings &#183; Suspension bridge &#183; Yoga deck</p>
+                <p>$180 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/9.jpeg" alt="Property 9"/>
+                <h3>Cozy Cabin</h3>
+                <p>Entire cabin &#183; 4 guests &#183; 2 bedrooms &#183; 2 beds &#183; 1 bath</p>
+                <p>Hot tub &#183; Fireplace &#183; Mountain views</p>
+                <p>$130 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/10.jpeg" alt="Property 10"/>
+                <h3>Beachfront Bungalow</h3>
+                <p>Entire bungalow &#183; 2 guests &#183; 1 bedroom &#183; 1 bed &#183; 1 bath</p>
+                <p>Direct beach access &#183; Hammocks &#183; Sunset view</p>
+                <p>$200 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/11.jpeg" alt="Property 11"/>
+                <h3>Historic Mansion</h3>
+                <p>Entire mansion &#183; 12 guests &#183; 6 bedrooms &#183; 6 beds &#183; 4 baths</p>
+                <p>Antique decor &#183; Grand ballroom &#183; Garden</p>
+                <p>$800 / night</p>
+            </div>
+            <div class="property-listing">
+                <img src="properties/12.jpeg" alt="Property 12"/>
+                <h3>Lakeside Cabin</h3>
+                <p>Entire cabin &#183; 6 guests &#183; 3 bedrooms &#183; 3 beds &#183; 2 baths</p>
+                <p>Lake view &#183; Canoeing &#183; Fishing</p>
+                <p>$170 / night</p>
+            </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
   );
 }
