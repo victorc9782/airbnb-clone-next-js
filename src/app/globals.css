@@ -35,7 +35,7 @@ a {
     gap: 10px;
 }
 
-.login-button, .signup-button {
+.login-button, .signup-button, .signout-button {
     padding: 10px 20px;
     border: none;
     background-color: #ff5a5f;
