@@ -8,7 +8,10 @@ import { getProperties } from "@/app/property/utils";
 const PropertyListings = () => {
     const [properties, setProperties] = useState([]);
     useEffect(() => {
-        setProperties(getProperties());
+        (async () => {
+            const properties = await getProperties();
+            setProperties(properties);
+        })();
     }, []);
 
     function renderProperties(properties) {

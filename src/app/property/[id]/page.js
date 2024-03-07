@@ -5,9 +5,14 @@ import { getPropertyById } from "@/app/property/utils";
 
 const PropertyPage = ({ params }) => {
     const [property, setProperty] = useState({});
-    useEffect(() =>{
-        setProperty(getPropertyById(params.id));
-    }, []);
+    useEffect(() => {
+        async function fetchProperty() {
+          const propertyData = await getPropertyById(params.id);
+          setProperty(propertyData);
+        }
+    
+        fetchProperty();
+    }, [params.id]);
 
     return (
         <div className="container mx-auto max-w-90">
