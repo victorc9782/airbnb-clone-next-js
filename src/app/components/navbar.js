@@ -38,41 +38,63 @@ const NavBar = () => {
         setShowLoginModal(false);
     };
 
-    const handleSignupSubmit = (formData) => {
+    const handleSignupSubmit = async (formData) => {
         // Handle the form submission here
-        setUserName(formData.name);
-        setUserEmail(formData.email);
-        setUserPassword(formData.password);
-        localStorage.setItem("userName", formData.name); // Store the user name in local storage
-        localStorage.setItem("userEmail", formData.email); // Store the user email in local storage
-        localStorage.setItem("userPassword", formData.password); // Store the user password in local storage
-        localStorage.setItem("lastLoginUserName", formData.name); 
-        localStorage.setItem("lastLoginUserEmail", formData.email);
-        localStorage.setItem("lastLoginUserPassword", formData.password);
-        closeSignupModal(); // Close the modal after form submission
+
+        const response = await fetch('/api/user/sign-up', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userName: formData.name,
+                userEmail: formData.email,
+                userPassword: formData.password,
+            }),
+        });
+
+        if (response.ok) {
+            setUserName(formData.name);
+            setUserEmail(formData.email);
+            // No longer needed to store the password and last user in local
+            // setUserPassword(formData.password);
+            // localStorage.setItem("lastLoginUserName", formData.name); 
+            // localStorage.setItem("lastLoginUserEmail", formData.email);
+            // localStorage.setItem("lastLoginUserPassword", formData.password);
+            closeSignupModal(); // Close the modal after form submission
+        } else {
+            const resposeBody = await response.json()
+            alert("Error: " + resposeBody.message)
+        }
     };
 
-    const handleLoginSubmit = (formData) => {
+    const handleLoginSubmit = async (formData) => {
         // Handle the login form submission here
         // You can perform authentication or any other necessary logic
         // based on the form data
-        console.log("Login form submitted with data:", formData);
-        const lastLoginUserName = localStorage.getItem("lastLoginUserName");
-        const lastLoginUserEmail = localStorage.getItem("lastLoginUserEmail");
-        const lastLoginUserPassword = localStorage.getItem("lastLoginUserPassword");
-        if ( lastLoginUserName 
-            && lastLoginUserEmail 
-            && lastLoginUserPassword 
-            && lastLoginUserEmail == formData.email
-            && lastLoginUserPassword == formData.password
-        ){
-            localStorage.setItem("userName", lastLoginUserName); 
-            localStorage.setItem("userEmail", lastLoginUserEmail);
-            localStorage.setItem("userPassword", lastLoginUserPassword);
+        const response = await fetch('/api/user/login', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userEmail: formData.email,
+                userPassword: formData.password,
+            }),
+        });
+        const resposeBody = await response.json();
+        const userName = resposeBody.userName;
+        const userEmail = resposeBody.userEmail;
 
-            setUserName(lastLoginUserName);
-            setUserEmail(lastLoginUserEmail);
-            setUserPassword(lastLoginUserPassword);
+        if (response.ok) {
+            // Remove all local storage 
+            localStorage.setItem("userName", userName); 
+            localStorage.setItem("userEmail", userEmail);
+
+            setUserName(userName);
+            setUserEmail(userEmail);
+            // No need to store user password in localStorage
+            // setUserPassword(lastLoginUserPassword);
 
             // Close the modal after form submission
             closeLoginModal();
