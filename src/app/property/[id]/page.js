@@ -1,10 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { getPropertyById } from "@/app/property/utils";
 
 const PropertyPage = ({ params }) => {
+    const router = useRouter();
     const [property, setProperty] = useState({});
+    const [ checkInDate, setCheckInDate ] = useState('');
+    const [ checkOutDate, setCheckOutDate ] = useState('');
+    const [ guests, setGuests ] = useState('1');
+
+    const searchParams = useSearchParams();
+
     useEffect(() => {
         async function fetchProperty() {
           const propertyData = await getPropertyById(params.id);
@@ -12,7 +20,34 @@ const PropertyPage = ({ params }) => {
         }
     
         fetchProperty();
+
+        setCheckInDate(searchParams.get('checkin'));
+        setCheckOutDate(searchParams.get('checkout'));
+        setGuests(searchParams.get('guests'));
     }, [params.id]);
+
+    const handleReserveClick = () => {
+        const formData = new FormData();
+
+        formData.append('checkin', checkInDate);
+        formData.append('checkout', checkOutDate);
+        formData.append('guests', guests);
+
+        const queryParams = new URLSearchParams(formData).toString();
+        router.push(`/payment?id=${property.id}&${queryParams}`);
+    };
+
+    const handleCheckInDateChange = (event) => {
+        setCheckInDate(event.target.value);
+      };
+    
+    const handleCheckOutDateChange = (event) => {
+        setCheckOutDate(event.target.value);
+    };
+    
+    const handleGuestsChange = (event) => {
+        setGuests(event.target.value);
+    };
 
     return (
         <div className="container mx-auto max-w-90">
@@ -35,18 +70,18 @@ const PropertyPage = ({ params }) => {
                         <div class="reservation-form">
                             <div class="form">
                                 <label for="checkin">Check-in Date:</label>
-                                <input type="date" id="checkin" name="checkin" required/>
+                                <input type="date" id="checkin" name="checkin" required value={checkInDate} onChange={handleCheckInDateChange}/>
                         
                                 <label for="checkout">Checkout Date:</label>
-                                <input type="date" id="checkout" name="checkout" required/>
+                                <input type="date" id="checkout" name="checkout" required value={checkOutDate} onChange={handleCheckOutDateChange}/>
                         
                                 <label for="guests">Number of Guests:</label>
-                                <select id="guests" name="guests">
+                                <select id="guests" name="guests" value={guests} onChange={handleGuestsChange} >
                                     <option value="1">1 guest</option>
                                     <option value="2">2 guests</option>
                                     <option value="3">3 guests</option>
                                 </select>
-                                <a href="/payment"><button type="submit">Reserve</button></a>
+                                <a onClick={handleReserveClick}><button type="submit">Reserve</button></a>
                             </div>
                         </div>
                     </div>
