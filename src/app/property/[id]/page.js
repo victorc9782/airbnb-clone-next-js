@@ -21,9 +21,19 @@ const PropertyPage = ({ params }) => {
     
         fetchProperty();
 
-        setCheckInDate(searchParams.get('checkin'));
-        setCheckOutDate(searchParams.get('checkout'));
-        setGuests(searchParams.get('guests'));
+        const checkInDate = searchParams.get('checkin');
+        const checkOutDate = searchParams.get('checkout');
+        const guests = searchParams.get('guests');
+        if(checkInDate){
+            setCheckInDate(checkInDate);
+        }
+        if(checkOutDate){
+            setCheckOutDate(checkOutDate);
+        }
+        if(guests){
+            setGuests(guests);
+        }
+
     }, [params.id]);
 
     const handleReserveClick = () => {
