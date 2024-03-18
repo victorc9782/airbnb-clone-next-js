@@ -12,6 +12,13 @@ const PaymentPage = () => {
     const checkInDate = searchParams.get('checkin');
     const checkOutDate = searchParams.get('checkout');
     const guests = searchParams.get('guests');
+
+    const [nameOnCard, setNameOnCard] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [expiryDate, setExpiryDate] = useState('');
+    const [cvv, setCVV] = useState('');
+    const [message, setMessage] = useState('');
+
     console.log("propertyId: " + propertyId);
 
     const handleEditDates = () => {
@@ -56,115 +63,124 @@ const PaymentPage = () => {
     if (!propertyData) {
         return <div>Loading...</div>;
     }
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const response = await fetch('/api/booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    propertyId: propertyId,
+                    checkin: checkInDate,
+                    checkout: checkOutDate,
+                    guests: guests,
+                    card: {
+                        cardHolder: nameOnCard,
+                        cardNumber: cardNumber,
+                        expiryDate: expiryDate,
+                        cvv: cvv
+                    },
+                    message: message
+                }),
+            });
+
+            if (response.ok) {
+                // Booking successful, redirect to confirmation page
+                // router.push('/confirm');
+            } else {
+                // Booking failed, handle error
+                throw new Error('Failed to submit booking');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     
     return (
-        <div class="property-details">
-            <div class="property-image">
+        <div className="container mx-auto">
+            <div className="property-image">
                 <Image src={'/properties/' + propertyData.image} alt="Property Image" width={1500} height={800}></Image>
             </div>
-            <div class="property-details">
-                <div class="content-container">
-                    <div class="parent">
-                        <div class="child1">
-                            <div class="request-to-book">
-                                <h1>Request to book:</h1>
-                                <div class="row">
-                                    <h2>{propertyData.title}</h2>
-                                </div>
-                                <div class="row">
-                                    <div class="left">
-                                        Dates: <span id="booking-dates">{checkInDate} to {checkOutDate}</span>
-                                    </div>
-                                    <div class="right">
-                                        <a href="#" id="edit-dates" onClick={handleEditDates}>Edit</a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="left">
-                                        Guests: <span id="booking-guests">{guests}</span>
-                                    </div>
-                                    <div class="right">
-                                        <a href="#" id="edit-guests" onClick={handleEditGuests}>Edit</a>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <h2>Travel insurance</h2>
-                                <div class="row">
-                                    <div class="left">
-                                        <p>Add travel insurance for $20!<br/>Get reimbursed if you need to cancel due to illness, flight delays and more.<br/><a href="#">What&#39;s covered</a></p>
-                                    </div>
-                                </div>
-                                <div class="right">
-                                    <button>Add</button>
-                                </div>
+            <div className="container mx-auto flex justify-center">
+                <div>
+                    <div className="request-to-book">
+                        <h1>Request to book:</h1>
+                        <div className="row">
+                            <h2 className="text-xl font-bold mb-2">{propertyData.title}</h2>
+                        </div>
+                        <div className="row">
+                            <div className="left">
+                                Dates: <span id="booking-dates">{checkInDate} to {checkOutDate}</span>
                             </div>
-                            <hr/>
-                            <form class="payment-form">
-                                <div class="row">
-                                    <h2>Credit card payment</h2>
-                                </div>
-                                <div class="row">
-                                    <label for="card-holder">Name on card:</label>
-                                    <input type="text" id="card-holder" name="card-holder" required/>
-                                </div>
-                                <div class="row">
-                                    <label for="card-number">Card number:</label>
-                                    <input type="text" id="card-number" name="card-number" required/>
-                                </div>
-                                <div class="row">
-                                    <label for="expiry-date">Expiry date:</label>
-                                    <input type="text" id="expiry-date" name="expiry-date" required/>
-                                </div>
-                                <div class="row">
-                                    <label for="cvv">CVV:</label>
-                                    <input type="text" id="cvv" name="cvv" required/>
-                                </div>
-                            </form>
-                            <hr/>
-                            <div class="row">
-                                <h2>Message the host</h2>
-                            </div>
-                            <div class="row">
-                                <p>Let the host know why you&#39;re travelling and when you&#39;ll check in.</p>
-                            </div>
-                            <div class="row">
-                                <textarea id="message" name="message"></textarea>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <h2>Cancellation policy</h2>
-                            </div>
-                            <div class="row">
-                                <p>Free cancellation for 48 hours. Cancel before 29 May for a partial refund. <a href="#">Learn more</a></p>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <a href="/confirm"><button id="request-to-book">Request to book</button></a>
+                            <div className="right">
+                                <a href="#" id="edit-dates" onClick={handleEditDates}>Edit</a>
                             </div>
                         </div>
-                        <div class="frame-container">
-                            <div class="reservation-form">
-                                <form>
-                                    <div class="row">
-                                        <label for="checkin">Check-in Date:</label>
-                                        <input type="date" id="checkin" name="checkin" required/>
-                                    </div>
-                                    <div class="row">
-                                        <label for="checkout">Checkout Date:</label>
-                                        <input type="date" id="checkout" name="checkout" required/>
-                                    </div>
-                                    <div class="row">
-                                        <label for="guests">Number of Guests:</label>
-                                        <select id="guests" name="guests">
-                                            <option value="1">1 guest</option>
-                                            <option value="2">2 guests</option>
-                                            <option value="3">3 guests</option>
-                                        </select>
-                                    </div>
-                                </form>
+                        <div className="row">
+                            <div className="left">
+                                Guests: <span id="booking-guests">{guests}</span>
                             </div>
+                            <div className="right">
+                                <a href="#" id="edit-guests" onClick={handleEditGuests}>Edit</a>
+                            </div>
+                        </div>
+                        <hr/>
+                        <h2 className="text-xl font-bold mb-2">Travel insurance</h2>
+                        <div className="row">
+                            <div className="left">
+                                <p>Add travel insurance for $20!<br/>Get reimbursed if you need to cancel due to illness, flight delays and more.<br/><a href="#">What&#39;s covered</a></p>
+                            </div>
+                        </div>
+                        <div className="right">
+                            <button>Add</button>
                         </div>
                     </div>
+                    <hr/>
+                    <form className="payment-form" onSubmit={handleFormSubmit}>
+                        <div className="row">
+                            <h2 className="text-xl font-bold mb-2">Credit card payment</h2>
+                        </div>
+                        <div className="row">
+                            <label for="card-holder">Name on card:</label>
+                            <input type="text" id="card-holder" name="card-holder" value={nameOnCard} onChange={(e) => setNameOnCard(e.target.value)} required/>
+                        </div>
+                        <div className="row">
+                            <label for="card-number">Card number:</label>
+                            <input type="text" id="card-number" name="card-number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required/>
+                        </div>
+                        <div className="row">
+                            <label for="expiry-date">Expiry date:</label>
+                            <input type="text" id="expiry-date" name="expiry-date" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} required/>
+                        </div>
+                        <div className="row">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" name="cvv" value={cvv} onChange={(e) => setCVV(e.target.value)} required/>
+                        </div>
+                        <div className="row">
+                            <h2>Message the host</h2>
+                        </div>
+                        <div className="row">
+                            <p>Let the host know why you&#39;re travelling and when you&#39;ll check in.</p>
+                        </div>
+                        <div className="row">
+                            <textarea id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                        </div>
+                        <hr/>
+                        <div className="row">
+                            <h2>Cancellation policy</h2>
+                        </div>
+                        <div className="row">
+                            <p>Free cancellation for 48 hours. Cancel before 29 May for a partial refund. <a href="#">Learn more</a></p>
+                        </div>
+                        <hr/>
+                        <div className="row">
+                            <button id="request-to-book" type="submit" className="bg-[#ff5a5f] text-white border-0 rounded p-[10px_20px] text-base cursor-pointer hover:bg-[#e6555a]">Request to book</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

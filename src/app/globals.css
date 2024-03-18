@@ -456,11 +456,11 @@ body, h1, h2, h3, p, button {
     border-top: 1px solid #e6e6e6;
   }
   
-  .request-to-book h2 {
+  /* .request-to-book h2 {
     font-size: 20px;
     font-weight: bold;
     margin: 30px 0 20px;
-  }
+  } */
   
   .request-to-book label {
     display: block;
